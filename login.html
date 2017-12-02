@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Internship Management System</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <style>
+    body{
+      background-image:url('https://pbs.twimg.com/media/BiEzO0BIUAEOSyS.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center; 
+    }
+
+  </style>
+
+  <script>
+    $(document).ready(function(){
+
+      $("a#view").click(function(event){
+        event.preventDefault();
+        $("#forms").remove();
+        $("thead,tbody").empty();
+
+        $.ajax({
+          url:"/viewInternships",
+          method:"GET",
+          dataType:JSON,
+          success:function(data){
+            $("thead").append("<tr><td>Student ID<td><td>Last Name<td><td>First Name<td><td>Student Address<td><td>Phone Number<td></tr>");
+            var i=0;
+            while(i<=data.length){
+              $("tbody").append("<tr><td>"+data[i].studentID+"</td>"+"<td>"+data[i].lastName+"</td>"+"<td>"+data[i].firstName+"</td>"+"<td>"+data[i].stuAddress+"</td>"+"<td>"+data[i].stuCell+"</td></tr>");
+              i = i + 1;
+            }
+          },
+          error: function(jqXHR, textStatus, errorThrown){
+            alert('An error occurred. Look at the console for more information!');
+          }
+        });
+
+      });
+
+      $("a#students").click(function(event){
+        event.preventDefault();
+        $("#forms").remove();
+        $("thead,tbody").empty();
+
+        $.ajax({
+          url:"/students",
+          method:"GET",
+          dataType:JSON,
+          success:function(data){
+            $("thead").append("<tr><td>Description<td><td>Type<td><td>Company Name<td><td>Company Address<td><td>Company Email<td></tr>");
+            var i=0;
+            while(i<=data.length){
+              $("tbody").append("<tr><td>"+data[i].description+"</td>"+"<td>"+data[i].type+"</td>"+"<td>"+data[i].companyName+"</td>"+"<td>"+data[i].comAddress+"</td>"+"<td>"+data[i].comEmail+"</td></tr>");
+              i = i + 1;
+            }
+          },
+          error: function(jqXHR, textStatus, errorThrown){
+            alert('An error occurred. Look at the console for more information!');
+          }
+        });
+
+      });
+
+      $("a#delete").click(function(event){
+        event.preventDefault();
+        if($("#forms").length>0){
+          $("#forms").remove();
+        } 
+        $("thead,tbody").empty();
+        $("#data").append("<iframe id='forms' src='DeleteForm.html'></iframe>");  
+      });
+
+      $("a#modify").click(function(event){
+        event.preventDefault();
+        if($("#forms").length>0){
+          $("#forms").remove();
+        } 
+        $("thead,tbody").empty();
+        $("#data").append("<iframe id='forms' src='ModifyInternship.html'  width='1000' height='400'></iframe>");  
+      });
+
+      $("a#create").click(function(event){
+        event.preventDefault();
+        if($("#forms").length>0){
+          $("#forms").remove();
+        } 
+        $("thead,tbody").empty();
+        $("#data").append("<iframe id='forms' src='CreateInternship.html'  width='1000' height='400'></iframe>");  
+      });
+    })
+  </script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <img class="navbar-brand" src="http://www.ec.ust.hk/sites/default/files/startup-internship/company-logo/2017-02/Parallx_logo.jpg" alt="Logo"></img>
+      <!-- <a class="navbar-brand" href="#"></a> -->
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a id="create" href="#">create</a></li>
+      <li><a href="#" id="modify">modify</a></li>
+      <li><a href="#" id="delete">delete</a></li>
+      <li><a id="view">View</a></li>
+      <li><a href="#" id="students">Students</a></li>
+    </ul>
+  </div>
+</nav>
+  
+<div class="container" id="data">
+  <div class="row">
+    <div class="col-md-offset-4">
+      <h3 id="heading">Internship Management system</h3>
+    </div>
+  </div>
+ 
+</div>
+
+<div class="container">
+
+  <table class="table table-striped table-hover">
+    <thead>
+      
+    </thead>
+    <tbody>
+      
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
+
