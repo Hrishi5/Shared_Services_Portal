@@ -10,7 +10,7 @@
 
   <style>
     body{
-      background-image:url('https://pbs.twimg.com/media/BiEzO0BIUAEOSyS.jpg');
+      
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-position: center; 
@@ -19,22 +19,41 @@
   </style>
 
   <script>
-    $(document).ready(function(){
+  //background-image:url('https://pbs.twimg.com/media/BiEzO0BIUAEOSyS.jpg');  
+  $(document).ready(function(){
+var baseUrl = '/InternshipWebApplication' ;
+var activateNavTab = function(tab) {
+	$("li#viewLi").removeClass("active") ;
+	$("li#deleteLi").removeClass("active") ;
+	$("li#createLi").removeClass("active") ;
+	$("li#modifyLi").removeClass("active") ;
+	$("li#studentsLi").removeClass("active") ;
+	tab.addClass("active") ;
+}
 
+var changeHeader = function(heading) {
+	$("#heading").html(heading) ;
+}
       $("a#view").click(function(event){
         event.preventDefault();
         $("#forms").remove();
         $("thead,tbody").empty();
-
+		activateNavTab($("li#viewLi")) ;
+		changeHeader("View Internships") ;
         $.ajax({
-          url:"/viewInternships",
+          url:baseUrl + "/viewInternships",
           method:"GET",
-          dataType:JSON,
-          success:function(data){
-            $("thead").append("<tr><td>Student ID<td><td>Last Name<td><td>First Name<td><td>Student Address<td><td>Phone Number<td></tr>");
+          dataType:"JSON",
+          success:function(resp){
+        	  if(resp.status != '1') {
+        		  alert('No data found!') ;
+        	  	return ;
+        	  }
+            $("thead").append("<tr><td>Internship ID</td><td>Type</td><td>Description</td><td>Company Name</td><td>Location</td><td>Email</td><td>Company Id</td></tr>");
             var i=0;
-            while(i<=data.length){
-              $("tbody").append("<tr><td>"+data[i].studentID+"</td>"+"<td>"+data[i].lastName+"</td>"+"<td>"+data[i].firstName+"</td>"+"<td>"+data[i].stuAddress+"</td>"+"<td>"+data[i].stuCell+"</td></tr>");
+            var data = resp.response ;
+            while(i<data.length){
+              $("tbody").append("<tr><td>"+data[i].internshipId+"</td>"+"<td>"+data[i].type+"</td>"+"<td>"+data[i].description+"</td>"+"<td>"+data[i].companyName+"</td>"+"<td>"+data[i].comAddress+"</td>"+"<td>"+data[i].comAddress+"</td>"+"<td>"+data[i].companyId+"</td></tr>");
               i = i + 1;
             }
           },
@@ -49,16 +68,22 @@
         event.preventDefault();
         $("#forms").remove();
         $("thead,tbody").empty();
-
+        activateNavTab($("li#studentsLi")) ;
+        changeHeader("View Students") ;
         $.ajax({
-          url:"/students",
+          url:baseUrl+"/students",
           method:"GET",
-          dataType:JSON,
-          success:function(data){
-            $("thead").append("<tr><td>Description<td><td>Type<td><td>Company Name<td><td>Company Address<td><td>Company Email<td></tr>");
+          dataType:"JSON",
+          success:function(resp){
+        	  if(resp.status !="1") {
+        		  alert("No data found!") ;
+        		  return ;
+        	  }
+            $("thead").append("<tr><td>Student ID</td><td>Last Name</td><td>First Name</td><td>Student Address</td><td>Phone Number<td></tr>");
             var i=0;
-            while(i<=data.length){
-              $("tbody").append("<tr><td>"+data[i].description+"</td>"+"<td>"+data[i].type+"</td>"+"<td>"+data[i].companyName+"</td>"+"<td>"+data[i].comAddress+"</td>"+"<td>"+data[i].comEmail+"</td></tr>");
+            var data = resp.response ;
+            while(i<data.length){
+            	$("tbody").append("<tr><td>"+data[i].studentID+"</td>"+"<td>"+data[i].lastName+"</td>"+"<td>"+data[i].firstName+"</td>"+"<td>"+data[i].stuAddress+"</td>"+"<td>"+data[i].stuCell+"</td></tr>");
               i = i + 1;
             }
           },
@@ -71,55 +96,66 @@
 
       $("a#delete").click(function(event){
         event.preventDefault();
+        activateNavTab($("li#deleteLi")) ;
+        changeHeader("Delete Internships") ;
         if($("#forms").length>0){
           $("#forms").remove();
         } 
         $("thead,tbody").empty();
-        $("#data").append("<iframe id='forms' src='DeleteForm.html'></iframe>");  
+        $("#data").append('<div align="center"><iframe id="forms" src="DeleteForm.html"></iframe></div>');  
       });
-
+		
       $("a#modify").click(function(event){
         event.preventDefault();
+        activateNavTab($("li#modifyLi")) ;
+        changeHeader("Modify Internships") ;
         if($("#forms").length>0){
           $("#forms").remove();
         } 
         $("thead,tbody").empty();
-        $("#data").append("<iframe id='forms' src='ModifyInternship.html'  width='1000' height='400'></iframe>");  
+        $("#data").append("<div align='center'><iframe id='forms' src='ModifyInternship.html'  width='1000' height='400'></iframe></div>");  
       });
 
       $("a#create").click(function(event){
         event.preventDefault();
+        activateNavTab($("li#createLi")) ;
+        changeHeader("Create Internships") ;
         if($("#forms").length>0){
           $("#forms").remove();
         } 
         $("thead,tbody").empty();
-        $("#data").append("<iframe id='forms' src='CreateInternship.html'  width='1000' height='400'></iframe>");  
+        $("#data").append("<div align='center'><iframe id='forms' src='CreateInternship.html'  width='1000' height='400'></iframe></div>");  
       });
     })
+    //http://www.ec.ust.hk/sites/default/files/startup-internship/company-logo/2017-02/Parallx_logo.jpg
   </script>
 
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" style="position:fixed;width:100%;">
   <div class="container-fluid">
     <div class="navbar-header">
-      <img class="navbar-brand" src="http://www.ec.ust.hk/sites/default/files/startup-internship/company-logo/2017-02/Parallx_logo.jpg" alt="Logo"></img>
+      <img class="navbar-brand" src="unc-charlotte-logo.gif" alt="Logo"></img>
       <!-- <a class="navbar-brand" href="#"></a> -->
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a id="create" href="#">create</a></li>
-      <li><a href="#" id="modify">modify</a></li>
-      <li><a href="#" id="delete">delete</a></li>
-      <li><a id="view">View</a></li>
-      <li><a href="#" id="students">Students</a></li>
+      <li id="createLi"><a id="create" href="#">Create Internships</a></li>
+      <li id="modifyLi"><a href="#" id="modify">Modify Internships</a></li>
+      <li id="deleteLi"><a href="#" id="delete">Delete Internships</a></li>
+      <li id="viewLi"><a href="#" id="view">View Internships</a></li>
+      <li id="studentsLi"><a href="#" id="students">Students</a></li>
     </ul>
+    <ul class="nav navbar-nav navbar-right">
+    <li><a>Internship Management System</a></li>
+    </ul>
+    
   </div>
 </nav>
   
 <div class="container" id="data">
-  <div class="row">
-    <div class="col-md-offset-4">
+  <div style="margin-top:7%;">
+    <div align="center">
       <h3 id="heading">Internship Management system</h3>
     </div>
   </div>

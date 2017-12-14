@@ -9,13 +9,35 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script>
   $(document).ready(function() {
+	  var dataObject = {} ;
+	  
 	  $("#submitButton").click(function(){
-		  $.post('/InternshipWebApplication/saveInternship', { field1: "hello", field2 : "hello2"}, 
-				    function(returnedData){
-				         console.log(returnedData);
-				}).fail(function(){
-				      console.log("error");
-				});
+		  dataObject.description = $('#desc').val() ;
+		  dataObject.type=$('#type').val() ;
+		  dataObject.companyId=$('#company_id').val() ;
+		  $.ajax({
+	          url:"/InternshipWebApplication/saveInternship",
+	          method:"POST",
+	          dataType:"JSON",
+	          data:JSON.stringify(dataObject),
+	          headers: { 
+	              'Accept': 'application/json',
+	              'Content-Type': 'application/json' 
+	          },
+	          success:function(resp){
+	        	  if(resp.status !="1") {
+	        		  alert("Failed to create internship!") ;
+	        		  return ;
+	        	  }else{
+	        		  alert("Internship created successfully") ;
+	        	  }
+	            
+	           
+	          },
+	          error: function(jqXHR, textStatus, errorThrown){
+	            alert('Failed to create data!');
+	          }
+	        });
 	  }) ;
 	  
 	  
@@ -27,12 +49,9 @@
 
 <div class="container">
 
-  <form id="create_form">
+  
 
-    <div class="form-group">
-      <label for="intern_id">Iternship ID:</label>
-      <input type="text" class="form-control" id="intern_id" placeholder="Enter Internship id" name="intern_id">
-    </div>
+  
 
     <div class="form-group">
       <label for="desc">Description:</label>
@@ -50,7 +69,7 @@
     </div>
 
     <button type="submit" id="submitButton" class="btn btn-default">Submit</button>
-  </form>
+  
 </div>
 
 </body>

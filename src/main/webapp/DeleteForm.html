@@ -7,20 +7,50 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+  <script>
+  $(document).ready(function(){
+	  $('#submit').click(function() {
+		  var data = {} ;
+		  data.internshipId = $('#intern_id').val() ;
+		  $.ajax({
+	          url:"/InternshipWebApplication/deleteInternship",
+	          method:"POST",
+	          dataType:"JSON",
+	          data:JSON.stringify(data),
+	          headers: { 
+	              'Accept': 'application/json',
+	              'Content-Type': 'application/json' 
+	          },
+	          success:function(resp){
+	        	  if(resp.status !="1") {
+	        		  alert("Failed to delete data!") ;
+	        		  return ;
+	        	  }else{
+	        		  alert("Data deleted successfully") ;
+	        	  }
+	            
+	           
+	          },
+	          error: function(jqXHR, textStatus, errorThrown){
+	            alert('Failed to delete data!');
+	          }
+	        });
+	  }) ;
+  }) ;
+  </script>
 </head>
 <body>
 
 
 <div class="container">
 
-  <form id="delete_form" action="/deleteInternship" method="post">
+  
     <div class="form-group">
-      <label for="intern_id">Iternship ID:</label>
+      <label for="intern_id">Internship ID:</label>
       <input type="text" class="form-control" id="intern_id" placeholder="Enter Internship id" name="intern_id">
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-  </form>
+    <button id="submit" type="submit" class="btn btn-default">Submit</button>
+  
 </div>
 
 </body>
