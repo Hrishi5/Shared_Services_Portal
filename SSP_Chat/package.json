@@ -1,0 +1,9 @@
+{
+  "name": "ssp_chat",
+  "description": "ssp_chat description",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  }
+}
