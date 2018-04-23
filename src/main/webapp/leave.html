@@ -1,0 +1,240 @@
+<!DOCTYPE>
+<html>
+<head>
+<style>
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+/* Styles */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Open Sans";
+  font-size: 14px;
+}
+
+.container {
+  width: 500px;
+  margin: 25px auto;
+}
+
+form {
+  padding: 20px;
+  background: #2c3e50;
+  color: #fff;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+form label,
+form input,
+form button {
+  border: 0;
+  margin-bottom: 3px;
+  display: block;
+  width: 100%;
+}
+form input {
+  height: 25px;
+  line-height: 25px;
+  background: #fff;
+  color: #000;
+  padding: 0 6px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+form button {
+  height: 30px;
+  line-height: 30px;
+  background: #e67e22;
+  color: #fff;
+  margin-top: 10px;
+  cursor: pointer;
+}
+form .error {
+  color: #ff0000;
+}
+</style>
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+<script type ="text/javascript" src="//cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+ 
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
+ <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<script src="/js/angular-1.6.6/angular.min.js">
+</script>
+
+<script>
+
+function validd() {
+	
+	  var fromDate = document.registration.fromDate.value;
+	  var toDate = document.registration.toDate.value;
+	  var reason = document.registration.reason.value;
+	  var employeeId = document.registration.employeeId.value;
+	  var status = document.registration.status.value;
+	  var leaveType = document.registration.LeaveType.value;
+
+	  if (fromDate == "" || fromDate ==  null) {
+	    alert('Please Select From Date');
+	    document.registration.fromDate.focus();
+	    return false;
+	  }
+
+	  if (employeeId == "" || employeeId ==  null) {
+		    alert('Please Enter your employee Id');
+		    document.registration.employee.focus();
+		    return false;
+		  }
+
+	  if (toDate == "" || toDate == null) {
+	    alert('Please Seclect To Date');
+	    document.registration.toDate.focus();
+	    return false;
+	  }
+
+	  if (reason == "" || reason == null) {
+	    alert('Please Enter Your Reason');
+	    document.registration.reason.focus();
+	    return false;
+	  }
+	  if (status == "" || status == null) {
+		    alert('Please Mention your status');
+		    document.registration.status.focus();
+		    return false;
+		  }
+	  if (leaveType == "" || leaveType == null) {
+		    alert('Please Seclect your LeaveType');
+		    document.registration.LeaveType.focus();
+		    return false;
+		  }
+	  
+	  else {
+	    return true;
+	  }
+	}
+
+
+$(document).ready(function() {
+	  var today = new Date();
+ 	  var dd = today.getDate();
+ 	  var mm = today.getMonth()+1; //January is 0!
+ 	  var yyyy = today.getFullYear();
+ 	   if(dd<10){
+ 	          dd='0'+dd
+ 	      } 
+ 	      if(mm<10){
+ 	          mm='0'+mm
+ 	      } 
+ 	  today = yyyy+'-'+mm+'-'+dd;
+ 	  document.getElementById("fromDate").setAttribute("min", today);
+ 	  document.getElementById("toDate").setAttribute("min",today);
+
+	  var dataObject = {} ;
+	  $("#submit").click(function(e){
+		  dataObject.fromDate = $('#fromDate').val() ;
+		  dataObject.toDate = $('#toDate').val() ;
+		  dataObject.leaveType=$('#LeaveType').val() ;
+		  dataObject.reason=$('#reason').val() ;
+		  dataObject.employeeId=$('#employeeId').val();
+		  dataObject.status=$('#status').val();
+		 // e.preventDefault();
+		    if(!validd()) return false;
+
+		  $.ajax({
+			 			  
+	          url:"/Shared_Services_Portal/applyLeave",
+	          method:"POST",
+	          dataType:"JSON",
+	          data:JSON.stringify(dataObject),
+	          headers: { 
+	              'Accept': 'application/json',
+	              'Content-Type': 'application/json' 
+	          },
+	          success:function(resp){
+	        	  if(resp.status !="1") {
+	        		  alert("Failed to apply for leave!") ;
+	        		  return ;
+	        	  }else{
+	        		  alert("Leave Application created successfully") ;
+	        		  
+	        	  }
+	          },
+	          error: function(jqXHR, textStatus, errorThrown){
+	            alert('Failed to Apply for Leave! Missing or Invalid Entry');
+	          }
+	        });
+	  }) ;
+	  
+	  
+  }) ;
+  </script>
+</head>
+<body>
+
+<div class="container">
+
+
+<form name="registration">
+   
+   <div class="form-group" >
+      <label for="fromDate">From Date:</label>
+      <input type="date" class="form-control" id="fromDate" placeholder="Enter fromDate" name="fromDate" required>
+    </div>
+   
+    <div class="form-group">
+      <label for="toDate">To Date:</label>
+      <input type="date" class="form-control" id="toDate" placeholder="Enter toDate" name="toDate" required>
+    </div>
+     
+	<div class="form-group">
+      <label for="LeaveType">Type:</label>
+      <!-- <input type="text" class="form-control" id="LeaveType" placeholder="Enter Type" name="LeaveType" required>
+       -->
+      <select class="form-control" id="LeaveType" name="LeaveType" required>
+          <option value="Sick_Leave">Sick Leave</option>
+          <option value="Adoption_Leave">Adoption Leave</option>
+          <option value="Advanced_Earned_Leave">Advanced Earned Leave</option>
+          <option value="Casual_Leave">Casual Leave</option>
+          <option value="Earned_Leave">Earned Leave</option>
+          <option value="Flexi_Holiday">Flexi Holiday</option>
+          <option value="Casual_Leave">Casual Leave</option>
+          <option value="Leave_Without_Pay">Leave Without Pay</option>
+          <option value="Maternity_Leave">Maternity Leave</option>
+        </select>
+      
+    </div>
+
+	<div class="form-group">
+      <label for="employeeId">employeeId:</label>
+      <input type="text" class="form-control" id="employeeId" placeholder="Enter employeeId" name="employeeId" required>
+    </div>
+
+     <div class="form-group">
+      <label for="reason">Reason:</label>
+      <input type="text" class="form-control" id="reason" placeholder="Enter Reason" name="reason" required>
+    </div>
+
+	<div class="form-group">
+      <label for="status">Status:</label>
+      <input type="text" class="form-control" id="status" placeholder="Enter Reason" name="status" required>
+    </div>
+
+    <button type="submit" id="submit" class="btn btn-default">Submit</button>
+    
+</form>
+</div>
+</body>
+</html>
