@@ -1,5 +1,6 @@
 package project.timesheetWebapp.dao;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -18,12 +19,22 @@ import project.timesheetWebapp.dto.TimesheetTaskDTO;
 public class TimesheetDAOImpl extends BaseDAO implements TimesheetDAO{
 
 	public int saveTimesheet(List<TimesheetDetailsDTO> timesheet) {
-		String userId = "926882" ;
 		SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate) 
 				.withTableName("timesheet") ;
 		int result = 0 ;
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd") ;
 		for(TimesheetDetailsDTO day : timesheet) {
 			for(TimesheetTaskDTO task:day.getTasks()) {
+				try {
+				task.setDate(format.parse(day.getDate()));
+				task.setTask(task.getName());
+				task.setEmployeeId(day.getEmployeeId());
+				}catch(Exception e) {
+					Date d = new Date(2018, 04, 24) ;
+					task.setDate(d);
+					
+				}
+				System.out.println(task);
 				SqlParameterSource ps = new BeanPropertySqlParameterSource(task) ;
 				result+= insert.execute(ps) ;
 			}

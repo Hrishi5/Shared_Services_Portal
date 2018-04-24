@@ -8,7 +8,15 @@ public class TimesheetDetailsDTO {
 	private String date ;
 	private float hours ;
 	private List<TimesheetTaskDTO> tasks ;
+	private String employeeId ;
 	
+	
+	public String getEmployeeId() {
+		return employeeId;
+	}
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
 	public TimesheetDetailsDTO() {
 		tasks = new ArrayList<TimesheetTaskDTO>() ;
 	}
@@ -40,8 +48,11 @@ public class TimesheetDetailsDTO {
 	}
 	@Override
 	public String toString() {
-		return "TimesheetDetailsDTO [date=" + date + ", hours=" + hours + ", tasks=" + tasks + "]";
+		return "TimesheetDetailsDTO [date=" + date + ", hours=" + hours + ", tasks=" + tasks + ", employeeId="
+				+ employeeId + "]";
 	}
+	
+	
 	
 	
 	

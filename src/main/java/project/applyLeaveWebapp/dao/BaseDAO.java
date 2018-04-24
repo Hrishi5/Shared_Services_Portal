@@ -8,10 +8,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class BaseDAO {
 	
 	@Autowired
-	DataSource datasource ;
+	public DataSource datasource ;
 	
 	@Autowired
-	JdbcTemplate jdbcTemplate ;
+	public JdbcTemplate jdbcTemplate ;
 	
 	
 

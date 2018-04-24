@@ -6,23 +6,10 @@
 	<meta name="author" content="pixelhint.com">
 	<meta name="description" content="Final Project SSDI"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
-	<link rel="stylesheet" type="text/css" href="css/reset.css">
-	<link rel="stylesheet" type="text/css" href="css/main_responsive.css">
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/carouFredSel.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
-	<base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>			
-
-<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+    <script type="text/javascript" src="jquery/jquery-3.2.1.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="angularjs/angular.min.js"></script>
 
 
 <script>
@@ -73,29 +60,7 @@ console.log('inside')
 </script>
 
 
-<style>
-#submit {
-  padding: 15px 25px;
-  font-size: 24px;
-  text-align: center;
-  cursor: pointer;
-  outline: none;
-  color: #fff;
-  background-color: #4CAF50;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 9px #999;
-}
 
-#submit:hover {background-color: #3e8e41}
-
-#submit:active {
-  background-color: #3e8e41;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-}
-
-</style>
 
 
 
@@ -104,9 +69,9 @@ console.log('inside')
 
 
 </head>
-<body ng-app="ta" ng-controller='tc' class="container-fluid">
+<body ng-app="ta" ng-controller='tc'>
 
-<div >
+<div  class="container-fluid">
 <div class="panel-group" >
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -117,26 +82,31 @@ console.log('inside')
     <div id="collapse1" class="panel-collapse collapse">
            </br>
       <div class = "travel" ng-repeat="t  in travelClaims">
+        
         Type of Travel:
-        <select>
-          <option ng-repeat="ty in traveltype">{{ty}}</option> 
+        <select ng-model="ty.travelType">
+          <option ng-repeat="ty in traveltype" value="{{$index+1}}">{{ty}}</option> 
         </select>
         </br></br>
-        	<input value='Type the Purpose of Visit'/>
+        	<input placeholder='Type the Purpose of Visit' ng-model="ty.purposeOfVisit"/>
         </br></br>
           </br></br>
-        Enter the Amount to be Reimbursed: <input type="text" value="$0000">
+        Enter the Amount to be Reimbursed: <input ng-model="ty.amount" type="text" value="$0000">
         </br></br>
-        Enter the Date of Arrival: <input type = "date" name = "arrival_date">
-        Enter the Date of Departure: <input type = "date" name = "dept_date"></br></br></br><hr>
+        Enter the Date of Arrival: <input ng-model="ty.toDate" type = "date" name = "arrival_date">
+        Enter the Date of Departure: <input ng-model="ty.fromDate" type = "date" name = "dept_date"></br></br></br><hr>
       </div>
       
     </div>
   </div>
 </div>
 </div>
-<div><button class = "add" type = "button" ng-click = 'addTravelItem()'>Add Fields</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<button class = "remove" type = "button" ng-click = 'removeTravelItem()'>Remove Field</button></div>
+<div>
+<button class = "btn btn-success" type = "button" ng-click = 'addTravelItem()'>Add Fields</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<button class = "btn btn-success" type = "button" ng-click = 'removeTravelItem()'>Remove Field</button>
+</div>
+
+
 
 
 </br>
@@ -153,24 +123,23 @@ console.log('inside')
       </br>
         <div class = "food" ng-repeat="f  in foodClaims">
         Type of Meal:
-        <select>
+        <select ng-model="f.purposeOfVisit">
           <option ng-repeat="fp in foodpurpose">{{fp}}</option> 
         </select>
         </br></br>
-        	<input value='Number of Meals'/>
+        	<input value='Number of Meals' ng-model="f.numberOfMeals"/>
         </br></br>
         </br></br>
-        Enter the Amount to be Reimbursed: <input type="text" value="$0000">
+        Enter the Amount to be Reimbursed: <input type="text" value="$0000" ng-model="f.amount">
         </br></br>
-        Upload the Receipt: <input type = "file" id = "food_receipt" file='doc'></br></br></br><hr>
-      </div>
+      
 
       
     </div>
   </div>
 </div>
-<div><button class = "add" type = "button" ng-click = 'addfoodItem()'>Add Fields</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<button class = "remove" type = "button" ng-click = 'removefoodItem()'>Remove Field</button></div>
+<div><button class = "btn btn-success" type = "button" ng-click = 'addfoodItem()'>Add Fields</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<button class = "btn btn-success" type = "button" ng-click = 'removefoodItem()'>Remove Field</button></div>
 
 
 </br>
@@ -186,22 +155,20 @@ console.log('inside')
       </br>
         <div class = "accomodation" ng-repeat="a in accomodationClaims">
         Purpose:
-        <textarea rows="4" cols="50" placeholder = "Enter the Purpose"></textarea>
+        <textarea rows="4" cols="50" placeholder = "Enter the Purpose" ng-model="a.purposeOfVisit"></textarea>
         </br></br>
-        Address<input placeholder='Enter Address'/>
+        Address<input placeholder='Enter Address' ng-model="a.address"/>
         </br></br>
-        Date From &nbsp <input type="date">&nbsp Date To &nbsp<input type="date">
+        Date From &nbsp <input type="date" ng-model="a.fromDate">&nbsp Date To &nbsp<input type="date" ng-model="a.toDate">
         </br></br>
-        Enter the Amount to be Reimbursed: <input type="text" value="$0000">
+        Enter the Amount to be Reimbursed: <input type="text" value="$0000" ng-model="a.amount">
         </br></br>
-        Upload the Receipt: <input type = "file" id = "accomodation_receipt" file='doc'></br></br></br><hr>
-      </div>
       
     </div>
   </div>
 </div>
-<div><button class = "add" type = "button" ng-click = 'addaccomodationItem()'>Add Fields</button> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<button class = "remove" type = "button" ng-click = 'removeaccomodationItem()'>Remove Field</button></div>
+<div><button class = "btn btn-success" type = "button" ng-click = 'addaccomodationItem()'>Add Fields</button> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<button class = "btn btn-success" type = "button" ng-click = 'removeaccomodationItem()'>Remove Field</button></div>
 </br>
 
 </div>
@@ -218,26 +185,26 @@ console.log('inside')
       </br>
         <div class = "misc" ng-repeat="m  in miscClaims">
         Purpose:
-        <textarea rows="4" cols="50" placeholder = "Enter the Purpose"></textarea>
+        <textarea ng-model="m.purposeOfVisit" rows="4" cols="50" placeholder = "Enter the Purpose"></textarea>
         </br></br>
         </br></br>
         Enter the Amount to be Reimbursed: <input type="text" value="$0000">
         </br></br>
-        Date: &nbsp <input type="date"/></br></br>
-        Upload the Receipt: <input type = "file" id = "misc_receipt" file='doc'></br></br></br><hr>
+        Date: &nbsp <input type="date" ng-model="m.date"/></br></br>
+        
       </div>
 
       
     </div>
   </div>
 </div>
-<div><button class = "add" type = "button" ng-click = 'addmiscItem()'>Add Fields</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<button class = "remove" type = "button" ng-click = 'removemiscItem()'>Remove Field</button></div>
+<div><button class = "btn btn-success" type = "button" ng-click = 'addmiscItem()'>Add Fields</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<button class = "btn btn-success" type = "button" ng-click = 'removemiscItem()'>Remove Field</button></div>
 
 
 </br></br>
 
-<button id = "submit" align="center">Submit </button>
+<button class="btn btn-success" align="center">Submit </button>
 
 
 

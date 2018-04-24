@@ -2,6 +2,7 @@ var tsApp = angular.module('tsApp',['ui.bootstrap']) ;
 
 tsApp.controller('tsAppCtrl',function($scope,$http,$filter) {
 	$scope.burl = 'Shared_Services_Portal' ;
+	$scope.userId = '1' ;
 	$scope.dt = new Date() ;
 	$scope.currentDay = $scope.dt.getDate() - 1 ;
 	$scope.disableWeekends = function(data) {
@@ -22,7 +23,8 @@ tsApp.controller('tsAppCtrl',function($scope,$http,$filter) {
 			date:new Date($scope.dt.getFullYear(), $scope.dt.getMonth(), i+1),
 			tasks:[],
 			hours:0,
-			checkedDb:false
+			checkedDb:false,
+			employeeId:$scope.userId
 		  }) ;	
 		}
 	}
@@ -98,8 +100,11 @@ tsApp.controller('tsAppCtrl',function($scope,$http,$filter) {
 			 }
 			}
 			if(days[i].checkedDb === false) {
+			days[i].employeeId = $scope.userId ;
+			console.log(JSON.stringify(days[i]))
 			data.push(days[i]) ;
 			}else{
+				days[i].employeeId = $scope.userId ;
 				updatedData.push(days[i]) ;
 			}
 		}
@@ -108,7 +113,7 @@ tsApp.controller('tsAppCtrl',function($scope,$http,$filter) {
 		$http.post('/Shared_Services_Portal/saveTimesheet',data).then(function(response){
 			alert(response.data.response) ;
 		},function(response){
-			alert(response.data.response); 
+			alert("Could not connect to server!"); 
 		})
 	}
 	

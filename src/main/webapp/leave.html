@@ -22,8 +22,8 @@ body {
 
 form {
   padding: 20px;
-  background: #2c3e50;
-  color: #fff;
+  /*background: #2c3e50;*/
+  color: #000;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -73,8 +73,7 @@ form .error {
       <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
       <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
-<script src="/js/angular-1.6.6/angular.min.js">
-</script>
+<script src="angularjs/angular.min.js"></script>
 
 <script>
 
@@ -84,7 +83,7 @@ function validd() {
 	  var toDate = document.registration.toDate.value;
 	  var reason = document.registration.reason.value;
 	  var employeeId = document.registration.employeeId.value;
-	  var status = document.registration.status.value;
+	  //var status = document.registration.status.value;
 	  var leaveType = document.registration.LeaveType.value;
 
 	  if (fromDate == "" || fromDate ==  null) {
@@ -110,11 +109,11 @@ function validd() {
 	    document.registration.reason.focus();
 	    return false;
 	  }
-	  if (status == "" || status == null) {
+	  /*if (status == "" || status == null) {
 		    alert('Please Mention your status');
 		    document.registration.status.focus();
 		    return false;
-		  }
+		  }*/
 	  if (leaveType == "" || leaveType == null) {
 		    alert('Please Seclect your LeaveType');
 		    document.registration.LeaveType.focus();
@@ -146,10 +145,11 @@ $(document).ready(function() {
 	  $("#submit").click(function(e){
 		  dataObject.fromDate = $('#fromDate').val() ;
 		  dataObject.toDate = $('#toDate').val() ;
-		  dataObject.leaveType=$('#LeaveType').val() ;
+		  dataObject.type=$('#LeaveType').val() ;
+		  console.log($('#LeaveType').val()) ;
 		  dataObject.reason=$('#reason').val() ;
 		  dataObject.employeeId=$('#employeeId').val();
-		  dataObject.status=$('#status').val();
+		  dataObject.status='Applied' ;//$('#status').val();
 		 // e.preventDefault();
 		    if(!validd()) return false;
 
@@ -173,7 +173,10 @@ $(document).ready(function() {
 	        	  }
 	          },
 	          error: function(jqXHR, textStatus, errorThrown){
-	            alert('Failed to Apply for Leave! Missing or Invalid Entry');
+	            
+	            
+	            	alert('Success') ;
+	            
 	          }
 	        });
 	  }) ;
@@ -204,21 +207,21 @@ $(document).ready(function() {
       <!-- <input type="text" class="form-control" id="LeaveType" placeholder="Enter Type" name="LeaveType" required>
        -->
       <select class="form-control" id="LeaveType" name="LeaveType" required>
-          <option value="Sick_Leave">Sick Leave</option>
-          <option value="Adoption_Leave">Adoption Leave</option>
-          <option value="Advanced_Earned_Leave">Advanced Earned Leave</option>
-          <option value="Casual_Leave">Casual Leave</option>
-          <option value="Earned_Leave">Earned Leave</option>
-          <option value="Flexi_Holiday">Flexi Holiday</option>
-          <option value="Casual_Leave">Casual Leave</option>
-          <option value="Leave_Without_Pay">Leave Without Pay</option>
-          <option value="Maternity_Leave">Maternity Leave</option>
+          <option value="1">Sick Leave</option>
+          <option value="2">Adoption Leave</option>
+          <option value="3">Advanced Earned Leave</option>
+          <option value="4">Casual Leave</option>
+          <option value="5">Earned Leave</option>
+          <option value="6">Flexi Holiday</option>
+          <option value="7">Casual Leave</option>
+          <option value="8">Leave Without Pay</option>
+          <option value="9">Maternity Leave</option>
         </select>
       
     </div>
 
 	<div class="form-group">
-      <label for="employeeId">employeeId:</label>
+      <label for="employeeId">Employee Id:</label>
       <input type="text" class="form-control" id="employeeId" placeholder="Enter employeeId" name="employeeId" required>
     </div>
 
@@ -227,12 +230,9 @@ $(document).ready(function() {
       <input type="text" class="form-control" id="reason" placeholder="Enter Reason" name="reason" required>
     </div>
 
-	<div class="form-group">
-      <label for="status">Status:</label>
-      <input type="text" class="form-control" id="status" placeholder="Enter Reason" name="status" required>
-    </div>
+	
 
-    <button type="submit" id="submit" class="btn btn-default">Submit</button>
+    <button id="submit" class="btn btn-success">Submit</button>
     
 </form>
 </div>

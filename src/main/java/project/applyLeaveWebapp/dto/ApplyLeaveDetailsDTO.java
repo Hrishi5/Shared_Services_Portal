@@ -7,7 +7,7 @@ public class ApplyLeaveDetailsDTO {
 	String fromDate;
 	String toDate;
 	String reason;
-	String leaveType;
+	String type;
 	String status;
 	public String getStatus() {
 		return status;
@@ -45,16 +45,16 @@ public class ApplyLeaveDetailsDTO {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-	public String getLeaveType() {
-		return leaveType;
+	public String getType() {
+		return type;
 	}
-	public void setLeaveType(String leaveType) {
-		this.leaveType = leaveType;
+	public void setType(String leaveType) {
+		this.type = leaveType;
 	}
 	@Override
 	public String toString() {
 		return "ApplyLeaveDetailsDTO [employeeId=" + employeeId + ", leaveID=" + leaveID + ", fromDate=" + fromDate
-				+ ", toDate=" + toDate + ", reason=" + reason + ", status=" + status + ", leaveType=" + leaveType + "]";
+				+ ", toDate=" + toDate + ", reason=" + reason + ", status=" + status + ", type=" + type + "]";
 	}
 	
 	}
