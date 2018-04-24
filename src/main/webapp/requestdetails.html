@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>SSDI Project</title>
+	<meta charset="utf-8">
+	<meta name="author" content="pixelhint.com">
+	<meta name="description" content="Final Project SSDI"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main_responsive.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/carouFredSel.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>			
+
+<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+
+<script>
+
+var app = angular.module('requestpage',[]) ;
+app.controller('tc1',function($scope){
+$scope.types = ['travel','food','Inter']
+
+$scope.traveltype = ['Inter','Within']
+$scope.foodpurpose = ['Meal','Client','Team']
+$scope.travelClaims = [{}]
+$scope.foodClaims = [{}]
+$scope.accomodationClaims = [{}]
+$scope.miscClaims = [{}]
+$scope.rowItems = [{}]
+
+$scope.addTravelItem  = function(){
+  $scope.travelClaims.push({}) ;
+}
+$scope.removeTravelItem = function(){
+  $scope.travelClaims.pop({}) ;
+}
+$scope.addfoodItem  = function(){
+  $scope.foodClaims.push({}) ;
+}
+$scope.removefoodItem = function(){
+  $scope.foodClaims.pop({}) ;
+}
+$scope.addaccomodationItem  = function(){
+  $scope.accomodationClaims.push({}) ;
+}
+$scope.removeaccomodationItem = function(){
+  $scope.accomodationClaims.pop({}) ;
+}
+$scope.addmiscItem  = function(){
+  $scope.miscClaims.push({}) ;
+}
+$scope.removemiscItem = function(){
+  $scope.miscClaims.pop({}) ;
+}
+$scope.addrowItem = function(){
+  $scope.rowItems.push({});
+} 
+
+$scope.myFunc  = function(type,claim){  claim.type=type ;
+console.log('inside')
+}
+}
+
+)
+
+</script>
+
+
+<style>
+#submit {
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+#submit:hover {background-color: #3e8e41}
+
+#submit:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+</style>
+
+
+
+    
+
+
+
+</head>
+<body  ng-app="requestpage" ng-controller='tc1'>
+<div>
+  <table>
+  <tr>
+    <th>Sr.No</th>
+    <th>Request ID</th>
+    <th>Request Type</th>
+    <th>Employee ID</th>
+    <th>Employee Name</th>
+    <th>Request Date</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><button>&#x2705;</button> &nbsp <button>&#10060;</button> </td>
+  </tr>
+  
+</table>
+</div>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<!--<div><button class = "add" type = "button" ng-click = ''>Submit</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-->
+</body>
+</html>
