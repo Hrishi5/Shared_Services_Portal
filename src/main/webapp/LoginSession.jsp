@@ -6,18 +6,17 @@
 <title>Login</title>
 </head>
 <body>
-<form name="form" action="<%=request.getContextPath()%>
-/LoginServlet" method="post">
- 
+<form name="form" action="/Shared_Services_Portal/LoginServlet" method="post">
+ <%-- <%=request.getContextPath()%> --%>
 <table align="center">
  
 <tr>
-<td>Username</td>
-<td><input type="text" name="username" /></td>
+<td>Email</td>
+<td><input type="text" name="emailId" /></td>
 </tr>
 <tr>
 <td>Password</td>
-<td><input type="text" name="password" /></td>
+<td><input type="password" name="password" /></td>
 </tr>
 <tr>
 <td><span style="color:red"><%=(request.getAttribute("errMessage") == null) ? "" : request.getAttribute("errMessage")%></span></td>
