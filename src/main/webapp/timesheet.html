@@ -46,7 +46,6 @@
 				<td>{{$index + 1}}</td>
 				<td><input ng-model="task.name"/>
 				</td>
-				<td><input ng-model="task.details"/></td>
 				<td><input ng-model="task.hours" type="number" ng-change="onHoursChange(days,task,$index,'{{task.hours}}')"/></td>
 				<td><button ng-click = "removeTask(days[currentDay].tasks,$index)"><i class="glyphicon glyphicon-trash"></i></button></td>
 				</tr>
@@ -54,7 +53,7 @@
 				
 			</table>
 		</div>
-		<button class="btn btn-info">Submit</button>
+		<button class="btn btn-info" ng-click="onClickOfSubmit(days)">Submit</button>
 	</div>
 </div>
 </body>
