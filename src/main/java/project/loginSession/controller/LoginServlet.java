@@ -1,6 +1,11 @@
 package project.loginSession.controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,58 +24,92 @@ public LoginServlet() {
  
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 {
- String userName = request.getParameter("username");
+ String emailId = request.getParameter("emailId");
  String password = request.getParameter("password");
  
+ 
+ System.out.println("Inside LoginServlet");
+  
  LoginDTO loginDto = new LoginDTO();
- 
- loginDto.setUserName(userName);
+ Statement statement = null;
+ ResultSet resultSet = null;
+ Connection con = null;
+ //loginDto.setUserName(emailId);
  loginDto.setPassword(password);
+ loginDto.setEmailId(emailId);
+ String emailIdDB = "";
+ String passwordDB = "";
  
- LoginDao loginDao = new LoginDao();
+try {
+	Class.forName("com.mysql.jdbc.Driver");
+	con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sharedservice", "root", "root");
+	 
+} catch (ClassNotFoundException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+} catch (SQLException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
  
+// LoginDao loginDao = new LoginDao();
+ String userValidate = "";
  try
  {
- String userValidate = loginDao.authenticateUser(loginDto);
  
- if(userValidate.equals("Admin_Role"))
+	 try {
+ statement = con.createStatement();
+ resultSet = statement.executeQuery("select email_address ,password from employee");
+ 
+ while(resultSet.next())
  {
- System.out.println("Admin's Home");
+	 System.out.println("Insdide while loop");
+ emailIdDB = resultSet.getString("email_address");
+ passwordDB = resultSet.getString("password");
+  
+ 	System.out.println("emailDB "+ emailIdDB);
+ 	System.out.println("emailId "+emailId);
+ 	
+ 	
+ 	System.out.println("password "+ passwordDB);
+ 	System.out.println("password "+password);
+ if(emailId.equals(emailIdDB) && password.equals(passwordDB))
+ userValidate ="User_Role";
  
- HttpSession session = request.getSession(); //Creating a session
- session.setAttribute("Admin", userName); //setting session attribute
- request.setAttribute("userName", userName);
+  }
  
- request.getRequestDispatcher("/JSP/Admin.jsp").forward(request, response);
  }
- else if(userValidate.equals("Editor_Role"))
+ 
+ catch(SQLException e)
  {
- System.out.println("Editor's Home");
- 
- HttpSession session = request.getSession();
- session.setAttribute("Editor", userName);
- request.setAttribute("userName", userName);
- 
- request.getRequestDispatcher("/JSP/Editor.jsp").forward(request, response);
+ e.printStackTrace();
  }
- else if(userValidate.equals("User_Role"))
+ 
+
+ if(userValidate.equals("User_Role"))
  {
- System.out.println("User's Home");
- 
- HttpSession session = request.getSession();
- session.setMaxInactiveInterval(10*60);
- session.setAttribute("Student", userName);
- request.setAttribute("userName", userName);
- 
- request.getRequestDispatcher("/JSP/User.jsp").forward(request, response);
- }
+	 System.out.println("Employee's Home");
+	 
+	 HttpSession session = request.getSession(); //Creating a session
+	 session.setAttribute("Employee", emailId); //setting session attribute
+	 request.setAttribute("emailId", emailId);
+	 
+	 //request.getRequestDispatcher("/Shared_Serivces_Portal/leave.html").forward(request, response);
+	 response.sendRedirect("/Shared_Services_Portal/leave.html");
+	 
+	 //change it to the page to be sent again
+	 
+	 }
  else
  {
- System.out.println("Error message = "+userValidate);
- request.setAttribute("errMessage", userValidate);
- 
- request.getRequestDispatcher("/JSP/Login.jsp").forward(request, response);
- }
+	 System.out.println("Error message = "+userValidate);
+	 request.setAttribute("errMessage", userValidate);
+	 
+	 //request.getRequestDispatcher("/Shared_Services_Portal/LoginSession.jsp").forward(request, response);
+	 response.sendRedirect("/Shared_services_Portal/LoginSession.jsp");
+	 
+	 //change it to the page to be sent after logout
+	 }
  }
  catch (IOException e1)
  {

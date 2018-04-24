@@ -22,30 +22,25 @@ public String authenticateUser(LoginDTO loginDto)
  
  String userNameDB = "";
  String passwordDB = "";
- String roleDB = "";
+ 
  
  try
  {
  con = DBConnection.createConnection();
  statement = con.createStatement();
- resultSet = statement.executeQuery("select username,password,role from users");
+ resultSet = statement.executeQuery("select email_address ,password from employee");
  
  //Query should be changed to match the database
  
  
  while(resultSet.next())
  {
- userNameDB = resultSet.getString("username");
+ userNameDB = resultSet.getString("email_address");
  passwordDB = resultSet.getString("password");
- roleDB = resultSet.getString("role");
- 
- if(userName.equals(userNameDB) && password.equals(passwordDB) && roleDB.equals("Admin"))
- return "Admin_Role";
- else if(userName.equals(userNameDB) && password.equals(passwordDB) && roleDB.equals("Editor"))
- return "Editor_Role";
- else if(userName.equals(userNameDB) && password.equals(passwordDB) && roleDB.equals("User"))
+  
+ if(userName.equals(userNameDB) && password.equals(passwordDB))
  return "User_Role";
- }
+  }
  }
  catch(SQLException e)
  {
