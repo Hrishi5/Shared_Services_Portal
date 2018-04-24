@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>SSDI Project</title>
+	<meta charset="utf-8">
+	<meta name="author" content="pixelhint.com">
+	<meta name="description" content="Final Project SSDI"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main_responsive.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/carouFredSel.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>			
+
+<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+
+<script>
+
+var app = angular.module('ta',[]) ;
+app.controller('tc',function($scope){
+$scope.types = ['travel','food','Inter']
+
+$scope.traveltype = ['Inter','Within']
+$scope.foodpurpose = ['Meal','Client','Team']
+$scope.travelClaims = [{}]
+$scope.foodClaims = [{}]
+$scope.accomodationClaims = [{}]
+$scope.miscClaims = [{}]
+
+$scope.addTravelItem  = function(){
+  $scope.travelClaims.push({}) ;
+}
+$scope.removeTravelItem = function(){
+  $scope.travelClaims.pop({}) ;
+}
+$scope.addfoodItem  = function(){
+  $scope.foodClaims.push({}) ;
+}
+$scope.removefoodItem = function(){
+  $scope.foodClaims.pop({}) ;
+}
+$scope.addaccomodationItem  = function(){
+  $scope.accomodationClaims.push({}) ;
+}
+$scope.removeaccomodationItem = function(){
+  $scope.accomodationClaims.pop({}) ;
+}
+$scope.addmiscItem  = function(){
+  $scope.miscClaims.push({}) ;
+}
+$scope.removemiscItem = function(){
+  $scope.miscClaims.pop({}) ;
+}
+
+$scope.myFunc  = function(type,claim){  claim.type=type ;
+console.log('inside')
+}
+}
+
+)
+
+</script>
+
+
+<style>
+#submit {
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+#submit:hover {background-color: #3e8e41}
+
+#submit:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+</style>
+
+
+
+    
+
+
+
+</head>
+<body ng-app="ta" ng-controller='tc' class="container-fluid">
+
+<div >
+<div class="panel-group" >
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse1">Travel</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse">
+           </br>
+      <div class = "travel" ng-repeat="t  in travelClaims">
+        Type of Travel:
+        <select>
+          <option ng-repeat="ty in traveltype">{{ty}}</option> 
+        </select>
+        </br></br>
+        	<input value='Type the Purpose of Visit'/>
+        </br></br>
+          </br></br>
+        Enter the Amount to be Reimbursed: <input type="text" value="$0000">
+        </br></br>
+        Enter the Date of Arrival: <input type = "date" name = "arrival_date">
+        Enter the Date of Departure: <input type = "date" name = "dept_date"></br></br></br><hr>
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+<div><button class = "add" type = "button" ng-click = 'addTravelItem()'>Add Fields</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<button class = "remove" type = "button" ng-click = 'removeTravelItem()'>Remove Field</button></div>
+
+
+</br>
+ 
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse2">Food</a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse">
+      </br>
+        <div class = "food" ng-repeat="f  in foodClaims">
+        Type of Meal:
+        <select>
+          <option ng-repeat="fp in foodpurpose">{{fp}}</option> 
+        </select>
+        </br></br>
+        	<input value='Number of Meals'/>
+        </br></br>
+        </br></br>
+        Enter the Amount to be Reimbursed: <input type="text" value="$0000">
+        </br></br>
+        Upload the Receipt: <input type = "file" id = "food_receipt" file='doc'></br></br></br><hr>
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+<div><button class = "add" type = "button" ng-click = 'addfoodItem()'>Add Fields</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<button class = "remove" type = "button" ng-click = 'removefoodItem()'>Remove Field</button></div>
+
+
+</br>
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse3">Accomodation</a>
+      </h4>
+    </div>
+    <div id="collapse3" class="panel-collapse collapse">
+      </br>
+        <div class = "accomodation" ng-repeat="a in accomodationClaims">
+        Purpose:
+        <textarea rows="4" cols="50" placeholder = "Enter the Purpose"></textarea>
+        </br></br>
+        Address<input placeholder='Enter Address'/>
+        </br></br>
+        Date From &nbsp <input type="date">&nbsp Date To &nbsp<input type="date">
+        </br></br>
+        Enter the Amount to be Reimbursed: <input type="text" value="$0000">
+        </br></br>
+        Upload the Receipt: <input type = "file" id = "accomodation_receipt" file='doc'></br></br></br><hr>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<div><button class = "add" type = "button" ng-click = 'addaccomodationItem()'>Add Fields</button> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<button class = "remove" type = "button" ng-click = 'removeaccomodationItem()'>Remove Field</button></div>
+</br>
+
+</div>
+
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse4">Miscellaneous</a>
+      </h4>
+    </div>
+    <div id="collapse4" class="panel-collapse collapse">
+      </br>
+        <div class = "misc" ng-repeat="m  in miscClaims">
+        Purpose:
+        <textarea rows="4" cols="50" placeholder = "Enter the Purpose"></textarea>
+        </br></br>
+        </br></br>
+        Enter the Amount to be Reimbursed: <input type="text" value="$0000">
+        </br></br>
+        Date: &nbsp <input type="date"/></br></br>
+        Upload the Receipt: <input type = "file" id = "misc_receipt" file='doc'></br></br></br><hr>
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+<div><button class = "add" type = "button" ng-click = 'addmiscItem()'>Add Fields</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<button class = "remove" type = "button" ng-click = 'removemiscItem()'>Remove Field</button></div>
+
+
+</br></br>
+
+<button id = "submit" align="center">Submit </button>
+
+
+
+	
+	
+
+</body>
+</html>
