@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCKXOCT3urLSGDKf37NAkHm5Evby6A-ZOw",
+    authDomain: "loginauthentication-cf4fd.firebaseapp.com",
+    databaseURL: "https://loginauthentication-cf4fd.firebaseio.com",
+    projectId: "loginauthentication-cf4fd",
+    storageBucket: "",
+    messagingSenderId: "13490471837"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="https://cdn.firebase.com/libs/firebaseui/2.7.0/firebaseui.js"></script>
+<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.7.0/firebaseui.css" />
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-functions.js"></script>
+<script src="https://www.gstatic.com/firebasejs/live/3.1/Firebase.js"></script>
+
+</head>
+<body>
+<div class="container">
+	<input id="txtEmail" type = "email">
+	<input id="txtPassword" type="passsword">
+	<button id="btnLogin" class="btn bt-action">
+	Log in
+	</button>
+	<button id="btnSignUp" class="btn btn-secondary">
+	Sign Up
+	</button>
+	<button id="btnLogout" class="btn btn-action hide">
+	Logout
+	</button>
+
+<script src="app.js" ></script>
+
+
+</div>
+</body>
+</html>
