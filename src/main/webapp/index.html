@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" style="height:100%">
+<head>
+	<title>Shared Services Portal</title>
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <title>Collaboration</title>
+    <script src="jquery/jquery-3.2.1.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="angularjs/angular.min.js"></script>
+    <script src="angularjs/angular-route.min.js"></script>
+    <script src="js/indexCtrl.js"></script>
+    <script src="uibootstrap/uibs.js"></script>
+  <style>
+    body{
+      
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      height:100%; 
+    }
+
+  </style>
+  <script>
+  </script>
+  </head>
+  <body ng-app="iApp" ng-controller="iCtrl" style="height:100%">
+  <nav class="navbar navbar-inverse" style="width:100%;margin-bottom:0">
+  <div class="container-fluid" style="height:100%">
+    <div class="navbar-header">
+      <img class="navbar-brand" src="unc-charlotte-logo.gif" alt="Logo"></img>
+      <!-- <a class="navbar-brand" href="#"></a> -->
+    </div>
+    <ul class="nav navbar-nav">
+      <li id="createLi"><a id="create" href="#" ng-click="onLeaveClick()">Leave</a></li>
+      <li id="modifyLi"><a href="#" id="modify" ng-click="onClaimsClick()">Claims</a></li>
+      <li id="deleteLi"><a href="#" id="delete" ng-click="onTimesheetClick()">Timesheet</a></li>
+      <li id="viewLi"><a href="#" id="view" ng-click="onChatClick()">Chat</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right" style="color:#FFFFFF">
+    <li><a>UNCC Employee Services</a></li>
+    </ul>
+    
+  </div>
+</nav>
+<div align="center" style="height:90%;">
+<iframe id="viewsrc" src="" style="height:100%;width:100%">
+</iframe>
+</div>
+
+
+<div class="navbar navbar-default" style="background-color:#000000">
+  <div class="container">
+     <div class="row" style="padding:1%">
+     <div class="col-md-offset-3" style="color:#FFFFFF">
+     Copyright © UNCC - All rights reserved, Site best viewed at 1366 x 768 using Chrome or Firefox
+     </div>
+      
+     </div>
+  </div>
+</div>
+  </body>
